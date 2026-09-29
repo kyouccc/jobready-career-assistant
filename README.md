@@ -170,10 +170,11 @@ jobready-career-assistant/
 │   ├── resume-review-report.md
 │   ├── interview-review-report.md
 │   └── offer-comparison-table.md
-├── examples/                         # 完整示例输出（虚构人物）
+├── examples/                         # 完整示例输出（虚构人物，同一人物贯穿四份）
 │   ├── 01-resume-rewrite.md          # 简历改写前后对比
 │   ├── 02-jd-analysis.md             # JD 拆解报告
-│   └── 03-interview-review.md        # 面试复盘报告
+│   ├── 03-interview-review.md        # 面试复盘报告
+│   └── 04-job-documents.md           # 内推邮件 + 面试感谢信
 ├── scripts/
 │   ├── offer_calc.py
 │   └── validate_skill.py
@@ -201,7 +202,7 @@ jobready-career-assistant/
 
 ## 示例预览
 
-`examples/` 下有 3 份完整示例，全部使用虚构人物。例如 `03-interview-review.md` 中的评分片段：
+`examples/` 下有 4 份完整示例，全部使用虚构人物且沿用同一人物与公司，可看到完整求职链路。例如 `03-interview-review.md` 中的评分片段：
 
 > **综合得分：6.8 / 10　→　评级：B**
 >

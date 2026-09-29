@@ -18,6 +18,7 @@
   4. name 与目录名一致，且符合 ^[a-z0-9][a-z0-9-]*$
   5. description 长度合理（>= 50 字符）且不跨行
   6. SKILL.md 中以反引号引用的 references/ scripts/ assets/ examples/ 路径真实存在
+     （支持 `references/01` 这类简写，按前缀解析到唯一匹配的实际文件）
   7. 无遗留的 TODO / FIXME 占位符
 
 退出码：0 = 通过，1 = 存在错误
@@ -134,11 +135,29 @@ def validate(skill_dir):
                 "description 含半角冒号加空格，可能破坏 YAML 解析；建议改用全角「：」"
             )
 
-    # --- 引用路径存在性
+    # --- 引用路径存在性（支持 `references/01` 这类简写，按前缀解析到实际文件）
     refs = sorted(set(REF_PATTERN.findall(text)))
-    missing = [r for r in refs if not os.path.exists(os.path.join(skill_dir, r))]
+    missing = []
+    shorthand = []
+    for ref in refs:
+        if os.path.exists(os.path.join(skill_dir, ref)):
+            continue
+        parent, _, leaf = ref.rpartition("/")
+        parent_dir = os.path.join(skill_dir, parent) if parent else None
+        if parent_dir and leaf and os.path.isdir(parent_dir):
+            matches = [
+                f
+                for f in os.listdir(parent_dir)
+                if f.startswith(leaf + "-") or f.startswith(leaf + ".")
+            ]
+            if len(matches) == 1:
+                shorthand.append((ref, matches[0]))
+                continue
+        missing.append(ref)
     for path in missing:
         report.error("SKILL.md 中引用了不存在的路径：%s" % path)
+
+    report.shorthand = shorthand
 
     # --- 占位符
     for lineno, line in enumerate(text.splitlines(), 1):
@@ -164,6 +183,10 @@ def main(argv):
 
     print("校验目标：%s" % os.path.abspath(target))
     print("引用路径检查：%d 个" % getattr(report, "refs_checked", 0))
+
+    shorthand = getattr(report, "shorthand", [])
+    for ref, resolved in shorthand:
+        print("  [info]  简写引用 %s -> %s" % (ref, resolved))
 
     for message in report.warnings:
         print("  [warn]  %s" % message)
