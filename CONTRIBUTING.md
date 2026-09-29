@@ -11,7 +11,6 @@
 | 修正错误 | 过时的行业信息、错误的公式、表述不清的段落 |
 | 补充文档骨架 | 新的输出模板（如「实习申请邮件」「竞业协议审阅清单」） |
 | 改进脚本 | `offer_calc.py` 的计算口径、`validate_skill.py` 的校验项 |
-| 翻译 | 目前 README 有中英双语，方法论文档仅中文，欢迎补充其他语言 |
 
 ## 三条不可违反的红线
 
@@ -36,7 +35,7 @@ python scripts/offer_calc.py --demo > /dev/null
 两项都必须通过。若修改了 `SKILL.md` 的结构或新增了文件，请同步更新：
 
 - `SKILL.md` 末尾的「文件索引」
-- `README.md` 与 `README.en.md` 的目录结构章节
+- `README.md` 的目录结构章节
 - `CHANGELOG.md`（在 `## [Unreleased]` 下新增条目）
 
 ## 文件组织约定

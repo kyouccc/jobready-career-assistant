@@ -4,8 +4,6 @@
 [![Validate Skill](https://github.com/kyoucc/jobready-career-assistant/actions/workflows/validate.yml/badge.svg)](https://github.com/kyoucc/jobready-career-assistant/actions/workflows/validate.yml)
 [![WorkBuddy Skill](https://img.shields.io/badge/WorkBuddy-Skill-blue.svg)](https://www.workbuddy.cn)
 
-[English](README.en.md) | **简体中文**
-
 ---
 
 ## 这是什么

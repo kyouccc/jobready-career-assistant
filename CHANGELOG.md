@@ -35,7 +35,7 @@
 
 - 3 份完整示例输出（`examples/`），全部使用虚构人物
 - 3 份可直接填充的报告骨架（`assets/`）
-- 中英双语 README、一键安装脚本（bash / PowerShell）、GitHub Actions 校验工作流
+- 中文 README、一键安装脚本（bash / PowerShell）、GitHub Actions 校验工作流
 
 ### 设计原则
 
