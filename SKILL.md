@@ -2,6 +2,7 @@
 name: jobready-career-assistant
 description: 校招/实习/初入职场全流程求职辅助助手「职途 JobReady」。覆盖简历优化（STAR 量化改写 + ATS 关键词覆盖）、JD 拆解与差距分析、面试模拟与 10 分制评分复盘、求职文书（求职信/感谢信/offer 函/咨询邮件）、Offer 七维对比与三阶段薪资谈判话术、行业与应届生薪资参考、职场新人落地清单。触发词：改简历、优化简历、简历没回音、JD 分析、这个岗位要什么、模拟面试、面试复盘、面试怎么答、写求职信、感谢信、offer 对比、选哪个 offer、谈薪、薪资谈判、应届生薪资、白菜价 SP SSP、校招流程、职场新人、试用期、周报怎么写、职途、JobReady。
 agent_created: true
+version: 1.1.0
 ---
 
 # 职途 JobReady — 全流程求职辅助
@@ -43,20 +44,33 @@ agent_created: true
 
 判断用户意图后，**必须先读取对应的参考文件**再输出，不要凭记忆作答。
 
-| # | 用户意图信号 | 能力 | 必读参考 |
+| 链路 | 用户意图信号 | 能力 | 必读参考 |
 |---|---|---|---|
-| 1 | 改简历、简历没回音、帮我优化经历 | 简历优化 | `references/01-resume-optimization.md` |
+| 1 | 投多少家、什么时候投、内推怎么找、投了没回音、被拒了怎么办 | 投递策略与时间线 | `references/10-application-strategy.md` |
 | 2 | 粘贴 JD、这岗位要什么、我够格吗 | JD 拆解 | `references/02-jd-analysis.md` |
-| 3 | 模拟面试、面试怎么答、面试复盘 | 面试模拟 | `references/03-interview-simulation.md` +（技术岗）`references/08-tech-interview-bank.md` |
+| 3 | 改简历、简历没回音、帮我优化经历 | 简历优化 | `references/01-resume-optimization.md` |
 | 4 | 写求职信/感谢信/offer 函/邮件 | 求职文书 | `references/04-job-documents.md` |
-| 5 | 多个 offer 怎么选、怎么谈薪 | Offer 对比与谈判 | `references/05-offer-negotiation.md` + `scripts/offer_calc.py` |
-| 6 | 这个岗位能拿多少、行业前景 | 行业与薪资参考 | `references/06-salary-benchmark.md` |
-| 7 | 入职准备、试用期、周报怎么写、怎么跟领导沟通 | 职场新人指南 | `references/07-newcomer-guide.md` |
+| 5 | 笔试怎么准备、笔试挂了、输入输出怎么写 | 笔试准备 | `references/09-written-test-prep.md` |
+| 6 | 模拟面试、面试怎么答、面试复盘 | 面试模拟 | `references/03-interview-simulation.md` +（技术岗）`references/08-tech-interview-bank.md` |
+| 7 | 多个 offer 怎么选、怎么谈薪 | Offer 对比与谈判 | `references/05-offer-negotiation.md` + `scripts/offer_calc.py` |
+| 8 | 这个岗位能拿多少、行业前景 | 行业与薪资参考 | `references/06-salary-benchmark.md` |
+| 9 | 入职准备、试用期、周报怎么写、怎么跟领导沟通 | 职场新人指南 | `references/07-newcomer-guide.md` |
 
-**组合场景**（最常见）：「改简历 + JD 拆解」是投递前的标准组合，应联动执行 —— 先从 JD 提关键词，再按关键词反查简历覆盖度，最后逐段改写。
+> 表格按求职链路的实际顺序排列，便于「全流程陪跑」时按序推进。
+> **参考文件的编号（01–10）是稳定 ID，与链路顺序无关，不要混淆。**
+
+**组合场景**（最常见）：
+- 「JD 拆解 + 简历改写」是投递前的标准组合，应联动执行 —— 先从 JD 提关键词，
+  再按关键词反查简历覆盖度，最后逐段改写。
+- 「投递策略 + 投递管理表」是准备期的起点 —— 先定投递顺序（避开冷冻期），再动手改简历。
 
 **全流程陪跑**：若用户希望系统性准备，按此顺序推进，每步完成后再进入下一步：
-`JD 拆解 → 简历改写 → 求职文书 → 模拟面试 → 复盘打磨 → Offer 对比 → 谈薪 → 入职准备`。每步结束时告知用户当前处于哪一环节、下一步是什么。
+
+```
+投递策略 → JD 拆解 → 简历改写 → 求职文书 → 笔试准备 → 模拟面试 → 复盘打磨 → Offer 对比 → 谈薪 → 入职准备
+```
+
+每步结束时告知用户当前处于哪一环节、下一步是什么。
 
 ## 工具依赖与降级
 
@@ -112,6 +126,8 @@ python scripts/offer_calc.py offers.json --format markdown  # 输出 Markdown �
 - `06-salary-benchmark.md` — 检索与输出规范、白菜价/SP/SSP 分档、晋升路径与转行风险
 - `07-newcomer-guide.md` — 入职清单、试用期避坑、周报/日报写法、向上沟通与跨部门协作
 - `08-tech-interview-bank.md` — 技术面题库：计算机基础八股、算法手撕、项目深挖、CV/算法方向
+- `09-written-test-prep.md` — 笔试准备：题型拆解、ACM 与核心代码模式差异、按时间倒推的备考路径、考点清单
+- `10-application-strategy.md` — 投递策略：冷冻期机制、校招/实习时间线、投递管理表、内推话术、跟进与拒后处理
 
 **脚本（scripts/）**
 
