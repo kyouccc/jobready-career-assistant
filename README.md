@@ -1,7 +1,7 @@
 # 职途 JobReady · 全流程求职辅助助手
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Validate Skill](https://github.com/kyoucc/jobready-career-assistant/actions/workflows/validate.yml/badge.svg)](https://github.com/kyoucc/jobready-career-assistant/actions/workflows/validate.yml)
+[![Validate Skill](https://github.com/kyouccc/jobready-career-assistant/actions/workflows/validate.yml/badge.svg)](https://github.com/kyouccc/jobready-career-assistant/actions/workflows/validate.yml)
 [![WorkBuddy Skill](https://img.shields.io/badge/WorkBuddy-Skill-blue.svg)](https://www.workbuddy.cn)
 
 ---
@@ -42,7 +42,7 @@
 **macOS / Linux / Git Bash**
 
 ```bash
-git clone https://github.com/kyoucc/jobready-career-assistant.git
+git clone https://github.com/kyouccc/jobready-career-assistant.git
 cd jobready-career-assistant
 bash install.sh
 ```
@@ -50,7 +50,7 @@ bash install.sh
 **Windows PowerShell**
 
 ```powershell
-git clone https://github.com/kyoucc/jobready-career-assistant.git
+git clone https://github.com/kyouccc/jobready-career-assistant.git
 cd jobready-career-assistant
 powershell -ExecutionPolicy Bypass -File install.ps1
 ```
@@ -61,7 +61,7 @@ powershell -ExecutionPolicy Bypass -File install.ps1
 ### 方式二：手动安装
 
 ```bash
-git clone https://github.com/kyoucc/jobready-career-assistant.git \
+git clone https://github.com/kyouccc/jobready-career-assistant.git \
   ~/.workbuddy-ai/skills/jobready-career-assistant
 ```
 
@@ -69,7 +69,7 @@ git clone https://github.com/kyoucc/jobready-career-assistant.git \
 
 ### 方式三：下载 zip
 
-从 [Releases](https://github.com/kyoucc/jobready-career-assistant/releases) 下载后解压到
+从 [Releases](https://github.com/kyouccc/jobready-career-assistant/releases) 下载后解压到
 `~/.workbuddy-ai/skills/` 下，确保目录名为 `jobready-career-assistant`。
 
 > 安装后若未立即生效，重启 WorkBuddy 客户端即可。
