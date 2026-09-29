@@ -1,0 +1,31 @@
+# WorkBuddy 本地工作区数据（技能运行时生成，不应入库）
+.workbuddy-ai/
+.workbuddy/
+
+# 打包产物
+dist/
+*.zip
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# 编辑器与 IDE
+.vscode/
+.idea/
+*.swp
+*~
+
+# 操作系统
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# 本地测试数据（含真实 offer / 简历内容，切勿提交）
+offers.json
+*.local.json
+local/
+private/

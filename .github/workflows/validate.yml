@@ -1,0 +1,61 @@
+name: Validate Skill
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Validate SKILL.md and scripts
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Validate SKILL.md structure
+        run: python scripts/validate_skill.py .
+
+      - name: Smoke test offer_calc.py
+        run: |
+          python scripts/offer_calc.py --demo > /dev/null
+          python scripts/offer_calc.py --demo --format markdown > /dev/null
+
+      - name: Verify offer_calc.py JSON output round-trip
+        run: |
+          python - <<'PY'
+          import json, subprocess, sys, tempfile, os
+          payload = {
+              "offers": [
+                  {"name": "A", "monthly_salary": 20000, "year_end_months": 3},
+                  {"name": "B", "monthly_salary": 18000, "months": 14,
+                   "year_end_guaranteed": True, "housing_fund_base": 8000},
+              ]
+          }
+          with tempfile.TemporaryDirectory() as tmp:
+              src = os.path.join(tmp, "offers.json")
+              out = os.path.join(tmp, "result.json")
+              with open(src, "w", encoding="utf-8") as fh:
+                  json.dump(payload, fh, ensure_ascii=False)
+              subprocess.run(
+                  [sys.executable, "scripts/offer_calc.py", src, "--json-out", out],
+                  check=True,
+              )
+              with open(out, encoding="utf-8") as fh:
+                  data = json.load(fh)
+          assert len(data["results"]) == 2, "expected 2 offers in result"
+          assert data["results"][0]["annual_cash_total"] > 0, "annual cash must be positive"
+          assert data["results"][1]["annual_cash_floating"] == 0, \
+              "guaranteed year-end bonus must not be counted as floating"
+          print("offer_calc.py round-trip OK")
+          PY
